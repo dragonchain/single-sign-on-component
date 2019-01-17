@@ -5,9 +5,19 @@ class App extends Component {
     super();
 	}
 
-	componentWillMount() {
+	componentDidMount() {
+		//check if logged in
+			// if true
+				// call onAuthorization with user data 
+			// if false
+				// show login component
+				// login with cognito
+				// call onAuthorization with user
+	}
+	onAuthorization(){
 
 	}
+
 	render(){
 		return(
 			<React.Fragment>
