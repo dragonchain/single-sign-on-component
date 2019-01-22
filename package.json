@@ -1,5 +1,5 @@
 {
-  "name": "single-sign-on-component",
+  "name": "@dragonchain-dev/single-sign-on-component",
   "version": "1.0.0",
   "description": "Single sign-on login component for use on any dragonchain url.",
   "main": "./lib/App.js",
@@ -47,5 +47,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "directories": {
+    "lib": "lib"
+  }
 }

@@ -12,3 +12,6 @@ phases:
       - NPM_TOKEN=$(aws secretsmanager get-secret-value --secret-id=npm/dragonchain-dev/read-only | jq -r '.SecretString | fromjson | .NPM_TOKEN')
       - npm install -g npm@latest
       - npm install
+  post_build:
+      commands:
+        - npm publish
