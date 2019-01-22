@@ -1,81 +1,91 @@
 import React, { Component } from 'react';
+import {
+  Authenticator,
+  Greetings,
+  SignIn,
+  SignOut,
+  SignUp,
+  ConfirmSignIn,
+  RequireNewPassword,
+  ConfirmSignUp,
+  VerifyContact,
+  ForgotPassword,
+  TOTPSetup,
+} from 'aws-amplify-react';
 import cognitoApi from './lib/CognitoApiWrapper';
-import LoginContext from './context';
-import Login from './components/Login';
-import { Authenticator, Greetings, SignIn, SignOut, SignUp, ConfirmSignIn, RequireNewPassword, ConfirmSignUp, VerifyContact, ForgotPassword, TOTPSetup } from 'aws-amplify-react';
+import Login from './custom/Login';
 
 const defaultState = {
-	isLoggedIn: false,
-	username: '',
-	email: '',
-	email_verified: false,
-	claimed: false,
-	ethereumAddress: '',
-}
+  isLoggedIn: false,
+  username: '',
+  email: '',
+  email_verified: false,
+  claimed: false,
+  ethereumAddress: '',
+};
 
 class App extends Component {
   constructor() {
-		super();
-		this.state = defaultState;
-		this.loginSuccess = this.loginSuccess.bind(this);
-		this.handleLogout = this.handleLogout.bind(this);
-	}
+    super();
+    this.state = defaultState;
+    this.handleLogout = this.handleLogout.bind(this);
+    this.onAuthorization = this.onAuthorization.bind(this);
+  }
 
-	async componentDidMount() {
-		let userData = await cognitoApi.checkSession(true);
-		if(!!userData) {
-			this.onAuthorization(userData)
-		}else{
-			this.setState({isLoggedIn: false});
-		}
-	}
+  async componentDidMount() {
+    const userData = await cognitoApi.checkSession(true);
+    if (userData) {
+      this.onAuthorization(userData);
+    } else {
+      this.setState({ isLoggedIn: false });
+    }
+  }
 
-	handleLogout(){
-		console.log('in handle logout', cognitoApi)
-		cognitoApi.logout()
-		this.setState({isLoggedIn: false})
-	}
+  loginFailure() {
+    this.setState({ isLoggedIn: false });
+  }
 
-	loginSuccess(data){
-		this.onAuthorization(data);
-	}
+  onAuthorization(data) {
+    const { appContext } = this.props;
+    this.setState({ isLoggedIn: true });
+    this.setState({ ...data }, () => {
+      appContext.changeAppState('username', data.username);
+      appContext.changeAppState('emailAddress', data.email);
+      appContext.changeAppState('isWalletClaimed', !!data.claimed);
+      appContext.changeAppState('ethereumAddress', data.ethereumAddress);
+      // this could be a new loginContext
+      appContext.changeAppState('logout', this.handleLogout);
+    });
+  }
 
-	loginFailure(){
-		this.setState({isLoggedIn: false})
-		// send error message
-	}
-	
+  handleLogout() {
+    cognitoApi.logout();
+    this.setState({ isLoggedIn: false });
+  }
 
-	onAuthorization(data){
-		this.setState({isLoggedIn: true});
-		this.setState({...data}, () => {	
-			this.props.appContext.changeAppState('username', data.username)
-			this.props.appContext.changeAppState('emailAddress', data.email)
-			this.props.appContext.changeAppState('isWalletClaimed', !!data.claimed)
-			this.props.appContext.changeAppState('ethereumAddress', data.ethereumAddress)
-			// this could be a new loginContext
-			this.props.appContext.changeAppState('logout', this.handleLogout)
-		})
-	}
-
-
-	onAuthStateChange(state, data){
-		console.log('state', state)
-	}
-
-	render(){
-		const state = this.state;
-		return(
-			<Authenticator theme={{ Container: {} }} onStateChange={(state, data) => this.onAuthStateChange(state, data)} hide={[Greetings, SignIn, SignOut, SignUp, ConfirmSignIn, RequireNewPassword, ConfirmSignUp, VerifyContact, ForgotPassword, TOTPSetup]}>
-				<LoginContext.Provider value={{ loginState: state }}>
-					{this.state.isLoggedIn ? 
-					this.props.children
-					:
-					<Login loginSuccess={this.loginSuccess}></Login>
-					}
-				</LoginContext.Provider>
-			</Authenticator>
-		)
-	}
+  render() {
+    const { isLoggedIn } = this.state;
+    return (
+      // eslint-disable-next-line max-len
+      <Authenticator
+        theme={{ Container: {} }}
+        hide={[
+          Greetings,
+          SignIn,
+          SignOut,
+          SignUp,
+          ConfirmSignIn,
+          RequireNewPassword,
+          ConfirmSignUp,
+          VerifyContact,
+          ForgotPassword,
+          TOTPSetup]}
+      >
+        {isLoggedIn
+				  ? this.props.children
+				  : <Login loginSuccess={this.onAuthorization} />}
+      </Authenticator>
+    );
+  }
 }
-export default App
+export default App;

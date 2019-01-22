@@ -3,10 +3,11 @@ import { Form } from 'reactstrap';
 
 class CustomForm extends Component {
   componentDidUpdate() {
-    if (this.props.errormessage && this.props.errormessage.length > 1) {
+    const { errormessage, successmessage } = this.props;
+    if (errormessage && errormessage.length > 1) {
       this.err.scrollIntoView({ behavior: 'smooth' });
     }
-    if (this.props.successmessage && this.props.successmessage.length > 1) {
+    if (successmessage && successmessage.length > 1) {
       this.success.scrollIntoView({ behavior: 'smooth' });
     }
   }
@@ -23,22 +24,28 @@ class CustomForm extends Component {
     return (
       <Form {...rest}>
         {
-          errormessage &&
+          errormessage
+          && (
           <div
-            className="alert alert-danger" role="alert"
+            className="alert alert-danger"
+            role="alert"
             ref={(c) => { this.err = c; }}
           >
             {errormessage}
           </div>
+          )
         }
         {
-          successmessage &&
+          successmessage
+          && (
           <div
-            className="alert alert-success" role="alert"
+            className="alert alert-success"
+            role="alert"
             ref={(c) => { this.success = c; }}
           >
             {successmessage}
           </div>
+          )
         }
         {children}
       </Form>

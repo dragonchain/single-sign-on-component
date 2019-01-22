@@ -1,0 +1,49 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+      "browser": true,
+      "node": true,
+      "mocha": true,
+      "jasmine": true
+  },
+  "extends": ["airbnb", "plugin:jasmine/recommended"],
+  "plugins": [
+      "babel",
+      "react",
+      "promise",
+      "jsx-a11y",
+      "import",
+      "jasmine"
+  ],
+  "settings": {
+      "import/resolver": {
+          "node": {
+              "moduleDirectory": [
+                  "node_modules",
+                  "src",
+                  "."
+              ]
+          }
+      }
+  },
+  "globals": {
+      "__DEV__": false,
+      "__TEST__": false,
+      "__PROD__": false,
+      "__COVERAGE__": false
+  },
+  "rules": {
+      "func-names": 0,
+      "key-spacing": 0,
+      "global-require": 0,
+      "import/no-extraneous-dependencies": 0,
+      "import/no-named-as-default": 0,
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-uses-vars": ["error"],
+      "jsx-a11y/anchor-is-valid": [ "error", {
+        "components": [ "Link" ],
+        "specialLink": [ "hrefLeft", "hrefRight" ],
+        "aspects": [ "noHref", "invalidHref", "preferButton" ]
+      }]
+  }
+}
