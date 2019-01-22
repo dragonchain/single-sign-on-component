@@ -4,6 +4,7 @@ import CustomForm from '../../custom/CustomForm';
 import cognitoApi from '../../lib/CognitoApiWrapper';
 
 // import logo from '../../assets/img/logo.svg'
+
 class Login extends Component {
 	constructor(){
 		super()
@@ -21,22 +22,31 @@ class Login extends Component {
     const { value } = e.target;
     this.setState({ [stateItem]: value });
 	}
-	
-	handleSubmit(e){
-		e.preventDefault();
-		console.log('in handle submit')
-		cognitoApi.checkSession().then(res => console.log(res))
 
-		cognitoApi.login(this.state.username, this.state.password)
-		.then(() => {
-			this.props.loginSuccess()
-		})
+	loginFaiure(){
+		// render err modal
+		// given state.err
+	}
+	
+	async handleSubmit(e){
+		e.preventDefault();
+		try{
+			await cognitoApi.login(this.state.username, this.state.password);
+			await this.setState({password: ''});
+			let userData = await cognitoApi.checkSession(true)
+			this.props.loginSuccess(userData);
+		}catch(err){
+			this.setState({error: err.message})
+		}
 	}
 
 	render(){
 		const { error } = this.state;
 		return(
-			<Card className="py-4">
+			<div class="app justify-content-center bg-scale">
+			<div class="container">
+
+			<Card className="col-md-8">
         <CardBody>
           <h1>Login</h1>
           <CustomForm
@@ -75,6 +85,8 @@ class Login extends Component {
           </CustomForm>
         </CardBody>
       </Card>
+			</div>
+			</div>
 		)
 	}
 }

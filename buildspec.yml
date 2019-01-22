@@ -1,0 +1,25 @@
+version: 0.2
+env:
+  variables:
+    CI: "true"
+cache:
+  paths:
+    - /root/.npm/**/*
+phases:
+  install:
+    commands:
+      - wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-1.5.tar.gz && tar xzf jq-1.5.tar.gz && cd jq-1.5 && ./configure && make && make install && cd ..
+      - NPM_TOKEN=$(aws secretsmanager get-secret-value --secret-id=npm/dragonchain-dev/read-only | jq -r '.SecretString | fromjson | .NPM_TOKEN')
+      - npm install -g npm@latest
+      - npm install
+  # pre_build:
+  #   commands:
+  #     - npm run test
+  build:
+    commands:
+      - npm run build-dev
+  post_build:
+    commands:
+      - pip install awscli
+      - mv src/robots-staging.txt ./build/robots.txt
+      - aws s3 cp --recursive ./build s3://hamilton-dashboard-staging

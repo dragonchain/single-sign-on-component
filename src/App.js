@@ -1,65 +1,79 @@
 import React, { Component } from 'react';
-
 import cognitoApi from './lib/CognitoApiWrapper';
-import { Authenticator, Greetings, SignIn, SignOut, SignUp, ConfirmSignIn, RequireNewPassword, ConfirmSignUp, VerifyContact, ForgotPassword, TOTPSetup } from 'aws-amplify-react';
+import LoginContext from './context';
 import Login from './components/Login';
+import { Authenticator, Greetings, SignIn, SignOut, SignUp, ConfirmSignIn, RequireNewPassword, ConfirmSignUp, VerifyContact, ForgotPassword, TOTPSetup } from 'aws-amplify-react';
 
+const defaultState = {
+	isLoggedIn: false,
+	username: '',
+	email: '',
+	email_verified: false,
+	claimed: false,
+	ethereumAddress: '',
+}
 
 class App extends Component {
   constructor() {
 		super();
-		this.state = {
-			isLoggedIn: false
+		this.state = defaultState;
+		this.loginSuccess = this.loginSuccess.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+	async componentDidMount() {
+		let userData = await cognitoApi.checkSession(true);
+		if(!!userData) {
+			this.onAuthorization(userData)
+		}else{
+			this.setState({isLoggedIn: false});
 		}
-		this.loginSuccess = this.loginSuccess.bind(this)
 	}
 
-	componentDidMount() {
-		//check if logged in
-		// cognitoApi.logout()
-		cognitoApi.checkSession()
-		.then((res) => {
-			if(!!res){
-				// if true
-				// call onAuthorization with user data
-				console.log('is logged in response', res);
-				this.onAuthorization()
-			}else{
-				// if false
-				// show login component
-				// login with cognito
-				// call onAuthorization with user
-				console.log('is not logged in response', res);
-				this.setState({isLoggedIn: false});
-			}
-		})
-		.catch((err) => {
-			console.log('error', err);
-		})
+	handleLogout(){
+		console.log('in handle logout', cognitoApi)
+		cognitoApi.logout()
+		this.setState({isLoggedIn: false})
 	}
 
-	loginSuccess(){
+	loginSuccess(data){
+		this.onAuthorization(data);
+	}
+
+	loginFailure(){
+		this.setState({isLoggedIn: false})
+		// send error message
+	}
+	
+
+	onAuthorization(data){
 		this.setState({isLoggedIn: true});
-		console.log('in login success', this.state)
+		this.setState({...data}, () => {	
+			this.props.appContext.changeAppState('username', data.username)
+			this.props.appContext.changeAppState('emailAddress', data.email)
+			this.props.appContext.changeAppState('isWalletClaimed', !!data.claimed)
+			this.props.appContext.changeAppState('ethereumAddress', data.ethereumAddress)
+			// this could be a new loginContext
+			this.props.appContext.changeAppState('logout', this.handleLogout)
+		})
 	}
 
-	onAuthorization(){
-		this.setState({isLoggedIn: true});
-
-	}
 
 	onAuthStateChange(state, data){
 		console.log('state', state)
 	}
 
 	render(){
+		const state = this.state;
 		return(
 			<Authenticator theme={{ Container: {} }} onStateChange={(state, data) => this.onAuthStateChange(state, data)} hide={[Greetings, SignIn, SignOut, SignUp, ConfirmSignIn, RequireNewPassword, ConfirmSignUp, VerifyContact, ForgotPassword, TOTPSetup]}>
-				{this.state.isLoggedIn ? 
-				this.props.children
-				:
-				<Login loginSuccess={this.loginSuccess}></Login>
-				}
+				<LoginContext.Provider value={{ loginState: state }}>
+					{this.state.isLoggedIn ? 
+					this.props.children
+					:
+					<Login loginSuccess={this.loginSuccess}></Login>
+					}
+				</LoginContext.Provider>
 			</Authenticator>
 		)
 	}
