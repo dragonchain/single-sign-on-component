@@ -4,8 +4,8 @@ import {
 } from 'reactstrap';
 import CustomForm from '../CustomForm';
 import cognitoApi from '../../lib/CognitoApiWrapper';
-
-// import logo from '../../assets/img/dragon.png';
+import dashboardLocation from '../../lib/dashboardLocations';
+import Logo from '../../assets/img/logo.svg';
 
 class Login extends Component {
   constructor() {
@@ -14,7 +14,15 @@ class Login extends Component {
       username: '',
       password: '',
       error: '',
+      dashboardSite: '',
     };
+  }
+
+  componentDidMount() {
+    const stage = process.env.REACT_APP_STAGE || 'local';
+    this.setState({
+      dashboardSite: dashboardLocation[stage].DASHBOARD,
+    });
   }
 
   handleInputChange(e, stateItem) {
@@ -23,24 +31,24 @@ class Login extends Component {
   }
 
   async handleSubmit(e) {
-    const { username, password } = this.state;
     e.preventDefault();
+    const { username, password } = this.state;
+    const { loginSuccess } = this.props;
     try {
       await cognitoApi.login(username, password);
       await this.setState({ password: '' });
       const userData = await cognitoApi.checkSession(true);
-      this.props.loginSuccess(userData);
+      loginSuccess(userData);
     } catch (err) {
       this.setState({ error: err.message });
     }
   }
 
   render() {
-    const { error } = this.state;
+    const { error, dashboardSite } = this.state;
     return (
       <div className="app justify-content-center bg-scale">
         <div className="container">
-
           <Card className="col-md-8" style={{ margin: 'auto' }}>
             <CardBody>
               <h1>Login</h1>
@@ -72,10 +80,10 @@ class Login extends Component {
                     <Button color="primary" type="submit" className="px-4 ">Login</Button>
                   </Col>
                   <Col xs="6" className="text-right">
-                    <Button color="link" onClick={() => { this.toggle(); }} className="px-0">Forgot password?</Button>
+                    <a color="link" href={dashboardSite} className="px-0">Forgot password?</a>
                   </Col>
                   <Col xs="12" className="text-right">
-                    {/* <img src={logo} alt="Dragonchain Logo" className="mt-2" style={{ width: '200px' }} /> */}
+                    <Logo alt="Dragonchain Logo" className="mt-2" style={{ width: '200px' }} />
                   </Col>
                 </Row>
               </CustomForm>

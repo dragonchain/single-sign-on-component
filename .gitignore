@@ -60,6 +60,6 @@ typings/
 # next.js build output
 .next
 
-# local development build folder 
-lib/ 
+# local development build folder  
 
+dest/

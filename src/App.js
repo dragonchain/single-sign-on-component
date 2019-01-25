@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Authenticator,
   Greetings,
@@ -28,8 +29,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = defaultState;
-    this.handleLogout = this.handleLogout.bind(this);
-    this.onAuthorization = this.onAuthorization.bind(this);
   }
 
   async componentDidMount() {
@@ -41,32 +40,45 @@ class App extends Component {
     }
   }
 
-  loginFailure() {
-    this.setState({ isLoggedIn: false });
+  componentDidUpdate(prevProps) {
+    const { location, getTokenCallback } = this.props;
+
+    if (location !== prevProps.location) {
+      cognitoApi.checkSession();
+      if (getTokenCallback) return getTokenCallback(cognitoApi.getIdToken());
+    }
+
+    return undefined;
   }
 
-  onAuthorization(data) {
-    const { appContext } = this.props;
+  onAuthorization = async (data) => {
+    const { getTokenCallback, changeAppState } = this.props;
+
+    await getTokenCallback(cognitoApi.getIdToken());
     this.setState({ isLoggedIn: true });
     this.setState({ ...data }, () => {
-      appContext.changeAppState('username', data.username);
-      appContext.changeAppState('emailAddress', data.email);
-      appContext.changeAppState('isWalletClaimed', !!data.claimed);
-      appContext.changeAppState('ethereumAddress', data.ethereumAddress);
-      // this could be a new loginContext
-      appContext.changeAppState('logout', this.handleLogout);
+      changeAppState('username', data.username);
+      changeAppState('emailAddress', data.email);
+      changeAppState('isWalletClaimed', !!data.claimed);
+      changeAppState('ethereumAddress', data.ethereumAddress);
+      changeAppState('logout', this.handleLogout);
     });
   }
 
-  handleLogout() {
+  handleLogout = () => {
     cognitoApi.logout();
+    this.setState({ isLoggedIn: false });
+  }
+
+  loginFailure() {
     this.setState({ isLoggedIn: false });
   }
 
   render() {
     const { isLoggedIn } = this.state;
+    const { children } = this.props;
+
     return (
-      // eslint-disable-next-line max-len
       <Authenticator
         theme={{ Container: {} }}
         hide={[
@@ -81,11 +93,16 @@ class App extends Component {
           ForgotPassword,
           TOTPSetup]}
       >
-        {isLoggedIn
-				  ? this.props.children
-				  : <Login loginSuccess={this.onAuthorization} />}
+        {isLoggedIn ? children : <Login loginSuccess={this.onAuthorization} />}
       </Authenticator>
     );
   }
 }
+
+App.propTypes = {
+  changeAppState: PropTypes.func.isRequired,
+  location: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  getTokenCallback: PropTypes.func.isRequired,
+};
 export default App;
