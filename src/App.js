@@ -32,7 +32,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const userData = await cognitoApi.checkSession(true);
+		const userData = await cognitoApi.checkSession(true);
     if (userData) {
     await this.onAuthorization(userData);
     } else {
@@ -60,7 +60,7 @@ class App extends Component {
       changeAppState('ethereumAddress', data.ethereumAddress);
       changeAppState('logout', this.handleLogout);
     });
-    await this.setState({ isLoggedIn: true });
+		await this.setState({ isLoggedIn: true });
   }
 
   handleLogout = () => {

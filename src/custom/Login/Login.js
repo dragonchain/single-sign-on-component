@@ -37,7 +37,7 @@ class Login extends Component {
     try {
       await cognitoApi.login(username, password);
       await this.setState({ password: '' });
-      const userData = await cognitoApi.checkSession(true);
+			const userData = await cognitoApi.checkSession(true);
       loginSuccess(userData);
     } catch (err) {
       this.setState({ error: err.message });
