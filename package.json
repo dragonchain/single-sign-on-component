@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "1.2.4",
+  "version": "1.2.6",
   "description": "Single sign-on login component for use on any dragonchain url.",
   "main": "./dest/App.js",
   "files": [
@@ -44,7 +44,7 @@
     "gulp-svg-sprite": "^1.5.0"
   },
   "dependencies": {
-    "@dragonchain-dev/cognito-wrapper": "^4.0.12",
+    "@dragonchain-dev/cognito-wrapper": "^4.0.14",
     "aws-amplify-react": "^2.3.0",
     "babel-polyfill": "^6.26.0",
     "prop-types": "^15.6.2",

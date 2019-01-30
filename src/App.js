@@ -34,7 +34,7 @@ class App extends Component {
   async componentDidMount() {
     const userData = await cognitoApi.checkSession(true);
     if (userData) {
-      this.onAuthorization(userData);
+    await this.onAuthorization(userData);
     } else {
       this.setState({ isLoggedIn: false });
     }
@@ -42,7 +42,6 @@ class App extends Component {
 
   componentDidUpdate(prevProps) {
     const { location, getTokenCallback } = this.props;
-
     if (location !== prevProps.location) {
       cognitoApi.checkSession();
       if (getTokenCallback) return getTokenCallback(cognitoApi.getIdToken());
@@ -53,16 +52,15 @@ class App extends Component {
 
   onAuthorization = async (data) => {
     const { getTokenCallback, changeAppState } = this.props;
-
     await getTokenCallback(cognitoApi.getIdToken());
-    this.setState({ isLoggedIn: true });
-    this.setState({ ...data }, () => {
+    await this.setState({ ...data }, () => {
       changeAppState('username', data.username);
       changeAppState('emailAddress', data.email);
       changeAppState('isWalletClaimed', !!data.claimed);
       changeAppState('ethereumAddress', data.ethereumAddress);
       changeAppState('logout', this.handleLogout);
     });
+    await this.setState({ isLoggedIn: true });
   }
 
   handleLogout = () => {
