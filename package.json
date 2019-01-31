@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "1.2.7",
+  "version": "2.0.0",
   "description": "Single sign-on login component for use on any dragonchain url.",
   "main": "./dest/App.js",
   "files": [

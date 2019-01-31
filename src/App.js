@@ -64,7 +64,14 @@ class App extends Component {
   }
 
   handleLogout = () => {
-    cognitoApi.logout();
+		const { changeAppState, resetState } = this.props;
+
+		cognitoApi.logout();
+		resetState()
+		changeAppState('username', '');
+		changeAppState('emailAddress', '');
+		changeAppState('isWalletClaimed', false);
+		changeAppState('ethereumAddress', '');
     this.setState({ isLoggedIn: false });
   }
 
@@ -75,8 +82,7 @@ class App extends Component {
   render() {
     const { isLoggedIn } = this.state;
     const { children } = this.props;
-
-    return (
+    return (	
       <Authenticator
         theme={{ Container: {} }}
         hide={[
