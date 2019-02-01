@@ -58,7 +58,7 @@ class App extends Component {
 
   onAuthorization = async (data) => {
     const { getTokenCallback, changeAppState } = this.props;
-    await getTokenCallback(this.cognitoApi.getIdToken());
+    await getTokenCallback(await this.cognitoApi.getIdToken());
     await this.setState({ ...data }, () => {
       changeAppState('username', data.username);
       changeAppState('emailAddress', data.email);
@@ -88,7 +88,7 @@ class App extends Component {
   render() {
     const { isLoggedIn } = this.state;
     const { children, env } = this.props;
-    const { login, checkSession } = this.cognitoApi;
+    const { login, checkSession } = this.cognitoApi || {};
 
     return (	
       <Authenticator
