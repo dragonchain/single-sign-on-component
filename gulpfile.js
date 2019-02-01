@@ -8,7 +8,7 @@ const del = require('del');
 require('babel-polyfill');
 
 
-gulp.task('clean', () => del(['dest']));
+gulp.task('clean', () => del(['dist']));
 
 gulp.task('babel', () => gulp.src('src/**/*.js', { base: './src' })
   .pipe(sourcemaps.init())
@@ -23,7 +23,7 @@ gulp.task('babel', () => gulp.src('src/**/*.js', { base: './src' })
     ],
   }))
   .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest('dest/')));
+  .pipe(gulp.dest('dist/')));
 
 gulp.task('assets', () => gulp.src('src/assets/**/*.svg', { base: './src' })
   .pipe(sourcemaps.init())
@@ -37,7 +37,7 @@ gulp.task('assets', () => gulp.src('src/assets/**/*.svg', { base: './src' })
     },
   }))
   .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest('dest/assets/')));
+  .pipe(gulp.dest('dist/assets/')));
 
 gulp.task('eslint', () => gulp.src(['src/**', '!node_modules/**'])
   .pipe(eslint())

@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import {
-  Button, Card, CardBody, Col, Input, InputGroup, InputGroupAddon, InputGroupText, Row,
+  Button,
+  Card,
+  CardBody,
+  Col,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row,
 } from 'reactstrap';
 import CustomForm from '../CustomForm';
-import cognitoApi from '../../lib/CognitoApiWrapper';
 import dashboardLocation from '../../lib/dashboardLocations';
 import Logo from '../../assets/img/logo.svg';
 
@@ -19,25 +26,28 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    const stage = process.env.REACT_APP_STAGE || 'local';
+    const { env } = this.props || 'local';
+
     this.setState({
-      dashboardSite: dashboardLocation[stage].DASHBOARD,
+      dashboardSite: dashboardLocation[env].DASHBOARD,
     });
   }
 
   handleInputChange(e, stateItem) {
     const { value } = e.target;
+
     this.setState({ [stateItem]: value });
   }
 
   async handleSubmit(e) {
     e.preventDefault();
     const { username, password } = this.state;
-    const { loginSuccess } = this.props;
+    const { loginSuccess, login, checkSession } = this.props;
+
     try {
-      await cognitoApi.login(username, password);
+      await login(username, password);
       await this.setState({ password: '' });
-			const userData = await cognitoApi.checkSession(true);
+			const userData = await checkSession(true);
       loginSuccess(userData);
     } catch (err) {
       this.setState({ error: err.message });
@@ -46,6 +56,7 @@ class Login extends Component {
 
   render() {
     const { error, dashboardSite } = this.state;
+
     return (
       <div className="app justify-content-center bg-scale">
         <div className="container">

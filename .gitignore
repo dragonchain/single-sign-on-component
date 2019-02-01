@@ -62,4 +62,4 @@ typings/
 
 # local development build folder  
 
-dest/
+dist/

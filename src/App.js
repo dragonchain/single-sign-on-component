@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import 'babel-polyfill';
+import CognitoApi from '@dragonchain-dev/cognito-wrapper';
 import PropTypes from 'prop-types';
 import {
   Authenticator,
@@ -13,7 +15,6 @@ import {
   ForgotPassword,
   TOTPSetup,
 } from 'aws-amplify-react';
-import cognitoApi from './lib/CognitoApiWrapper';
 import Login from './custom/Login';
 
 const defaultState = {
@@ -27,14 +28,18 @@ const defaultState = {
 
 class App extends Component {
   constructor() {
-    super();
+    super(props);
     this.state = defaultState;
+    this.cognitoApi = null;
   }
 
   async componentDidMount() {
-		const userData = await cognitoApi.checkSession(true);
+    this.cognitoApi = new CognitoApi(this.props.env || 'local', this.props.extension || 'com');
+
+    const userData = await this.cognitoApi.checkSession(true);
+
     if (userData) {
-    await this.onAuthorization(userData);
+      await this.onAuthorization(userData);
     } else {
       this.setState({ isLoggedIn: false });
     }
@@ -42,9 +47,10 @@ class App extends Component {
 
   componentDidUpdate(prevProps) {
     const { location, getTokenCallback } = this.props;
+
     if (location !== prevProps.location) {
-      cognitoApi.checkSession();
-      if (getTokenCallback) return getTokenCallback(cognitoApi.getIdToken());
+      this.cognitoApi.checkSession();
+      if (getTokenCallback) return getTokenCallback(this.cognitoApi.getIdToken());
     }
 
     return undefined;
@@ -52,7 +58,7 @@ class App extends Component {
 
   onAuthorization = async (data) => {
     const { getTokenCallback, changeAppState } = this.props;
-    await getTokenCallback(cognitoApi.getIdToken());
+    await getTokenCallback(this.cognitoApi.getIdToken());
     await this.setState({ ...data }, () => {
       changeAppState('username', data.username);
       changeAppState('emailAddress', data.email);
@@ -66,7 +72,7 @@ class App extends Component {
   handleLogout = () => {
 		const { changeAppState, resetState } = this.props;
 
-		cognitoApi.logout();
+		this.cognitoApi.logout();
 		resetState()
 		changeAppState('username', '');
 		changeAppState('emailAddress', '');
@@ -81,7 +87,9 @@ class App extends Component {
 
   render() {
     const { isLoggedIn } = this.state;
-    const { children } = this.props;
+    const { children, env } = this.props;
+    const { login, checkSession } = this.cognitoApi;
+
     return (	
       <Authenticator
         theme={{ Container: {} }}
@@ -97,7 +105,7 @@ class App extends Component {
           ForgotPassword,
           TOTPSetup]}
       >
-        {isLoggedIn ? children : <Login loginSuccess={this.onAuthorization} />}
+        {isLoggedIn ? children : <Login env={env} loginSuccess={this.onAuthorization} checkSession={checkSession} login={login} />}
       </Authenticator>
     );
   }
@@ -109,4 +117,5 @@ App.propTypes = {
   children: PropTypes.node.isRequired,
   getTokenCallback: PropTypes.func.isRequired,
 };
+
 export default App;
