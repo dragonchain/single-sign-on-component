@@ -90,8 +90,11 @@ class Login extends Component {
                   <Col xs="6">
                     <Button color="primary" type="submit" className="px-4 ">Login</Button>
                   </Col>
-                  <Col xs="6" className="text-right">
-                    <a color="link" href={dashboardSite} className="px-0">Forgot password?</a>
+                  <Col xs="6 text-right">
+                    <a color="secondary" href={`${dashboardSite}/forgot-password`} className="px-0">Forgot password?</a>
+                  </Col>
+                  <Col xs="6">
+                    <a color="link" href={`${dashboardSite}/register`} className="px-4 btn btn-outline-primary" style={{ marginTop: '1rem' }}>Register & Verify</a>
                   </Col>
                   <Col xs="12" className="text-right">
                     <Logo alt="Dragonchain Logo" className="mt-2" style={{ width: '200px' }} />
