@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "2.0.5",
+  "version": "2.0.8",
   "description": "Single sign-on login component for use on any dragonchain url.",
   "main": "./dist/App.js",
   "files": [
@@ -11,7 +11,7 @@
     "test": "gulp clean && gulp build && gulp spec --require babel-polyfill",
     "clean": "gulp clean",
     "watch": "gulp --require babel-polyfill",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",

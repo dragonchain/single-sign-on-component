@@ -10,9 +10,11 @@ import {
   InputGroupText,
   Row,
 } from 'reactstrap';
+import TOTPModal from '../TOTPModal'
 import CustomForm from '../CustomForm';
 import dashboardLocation from '../../lib/dashboardLocations';
 import Logo from '../../assets/img/logo.svg';
+import { cognitoApi } from '../../lib'
 
 class Login extends Component {
   constructor() {
@@ -22,6 +24,8 @@ class Login extends Component {
       password: '',
       error: '',
       dashboardSite: '',
+      showTotpModal: false,
+      session: '',
     };
   }
 
@@ -39,23 +43,31 @@ class Login extends Component {
     this.setState({ [stateItem]: value });
   }
 
+  toggle = () => {
+    this.setState({ showTotpModal: !this.state.showTotpModal })
+  }
+
   async handleSubmit(e) {
     e.preventDefault();
     const { username, password } = this.state;
-    const { loginSuccess, login, checkSession } = this.props;
+    const { loginSuccess } = this.props;
 
     try {
-      await login(username, password);
-      await this.setState({ password: '' });
-			const userData = await checkSession(true);
-      loginSuccess(userData);
+      const response = await cognitoApi.login(username, password)
+      if (response.Session) {
+        this.setState({ session: response, modal: true, showTotpModal:true})
+      } else {
+        const userData = await cognitoApi.checkSession(true);
+        loginSuccess(userData);
+      }
     } catch (err) {
-      this.setState({ error: err.message });
+      this.setState({ error: err.message })
     }
   }
 
   render() {
-    const { error, dashboardSite } = this.state;
+    const { error, dashboardSite, username, session, showTotpModal, password } = this.state;
+    const { loginSuccess } = this.props;
 
     return (
       <div className="app justify-content-center bg-scale">
@@ -102,6 +114,14 @@ class Login extends Component {
                 </Row>
               </CustomForm>
             </CardBody>
+            {showTotpModal && <TOTPModal
+              toggle={this.toggle}
+              username={username}
+              password={password}
+              handleLoginSuccess={loginSuccess}
+              pendingSession={session}
+              submitLogin={e => this.handleSubmit(e)}
+            />}
           </Card>
         </div>
       </div>
