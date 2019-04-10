@@ -52,7 +52,8 @@ class TOTPModal extends Component {
         const result = await hopperApi.useTotpRecoveryCode(username, recoveryCode);
         if (result) {
           this.setState({ success: 'Success. Logging in...' })
-          const userData = await cognitoApi.login(username, password);
+          await cognitoApi.login(username, password);
+          const userData = await cognitoApi.checkSession(true)
           handleLoginSuccess(userData);
         } else {
           this.setState({ error: 'Invalid recovery code.' })

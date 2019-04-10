@@ -32,9 +32,7 @@ export default class CognitoApiWrapper {
     return APIs.cognitoApi.logout();
   }
 
-  // returns { username, claimed } if logged in, and false if not.
-  checkSession = () => APIs.cognitoApi.checkSession().then(session => session);
-
+  checkSession = (fullUserObject) => APIs.cognitoApi.checkSession(fullUserObject).then(session => session);
 
   /* 2FA */
 
