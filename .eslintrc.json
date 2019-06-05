@@ -33,6 +33,7 @@
       "__COVERAGE__": false
   },
   "rules": {
+      "react/prop-types": 0,
       "func-names": 0,
       "key-spacing": 0,
       "global-require": 0,

@@ -1,12 +1,9 @@
-import 'babel-polyfill'
 import CognitoApi from '@dragonchain-dev/cognito-wrapper';
-import HopperApi from './HopperApi';
-
+import { env } from '../globals';
 
 class ApiSingletons {
   constructor() {
-    this.cognitoApi = new CognitoApi(process.env.REACT_APP_STAGE || 'local');
-    this.hopperApi = new HopperApi(this.cognitoApi);
+    this.cognitoApi = new CognitoApi(env);
   }
 }
 

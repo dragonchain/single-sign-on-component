@@ -1,13 +1,13 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "2.0.10",
+  "version": "3.1.3",
   "description": "Single sign-on login component for use on any dragonchain url.",
-  "main": "./dist/App.js",
+  "main": "./dist/index.js",
   "files": [
     "/dist"
   ],
   "scripts": {
-    "build": "gulp clean && gulp build && gulp assets",
+    "build": "gulp clean && gulp build",
     "test": "gulp clean && gulp build && gulp spec --require babel-polyfill",
     "clean": "gulp clean",
     "watch": "gulp --require babel-polyfill",
@@ -24,33 +24,31 @@
   },
   "homepage": "https://github.com/dragonchain-inc/single-sign-on-component#readme",
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
     "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.3.0",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
-    "babel-plugin-inline-react-svg": "^1.0.1",
+    "babel-eslint": "^10.0.1",
     "del": "^3.0.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jasmine": "^2.10.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.12.4",
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^5.0.0",
     "gulp-jasmine": "^4.0.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-svg-sprite": "^1.5.0"
+    "gulp-sourcemaps": "^2.6.4"
   },
   "dependencies": {
     "@dragonchain-dev/cognito-wrapper": "^4.0.18",
-    "aws-amplify-react": "^2.3.0",
     "babel-polyfill": "^6.26.0",
+    "mixpanel-browser": "^2.28.0",
     "prop-types": "^15.6.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "reactstrap": "^7.1.0"
+    "react": "^16.7.0"
   },
   "browserslist": [
     ">0.2%",

@@ -1,10 +1,7 @@
-import HopperApiWrapper from './HopperApiWrapper';
 import CognitoApiWrapper from './CognitoApiWrapper';
 import ApiSingletons from './ApiSingletons';
+import AnalyticAction from './AnalyticAction';
 
-
-const hopperApi = new HopperApiWrapper();
 const cognitoApi = new CognitoApiWrapper();
 
-
-export { hopperApi, cognitoApi, ApiSingletons};
+export { AnalyticAction, ApiSingletons, cognitoApi };

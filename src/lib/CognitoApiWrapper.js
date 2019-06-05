@@ -1,51 +1,29 @@
 import APIs from './ApiSingletons';
 
 export default class CognitoApiWrapper {
-  constructor() {
-    this.changeAppState = () => { };
-    this.resetAppState = () => { };
+  checkSession = async (isFullObject) => {
+    const userData = await APIs.cognitoApi.checkSession(isFullObject);
+    if (!userData) return false;
+    return userData;
   }
 
-  getIdToken = async () => {
+  token = async () => {
     try {
-      const response = await APIs.cognitoApi.getIdToken()
-      return response
+      const response = await APIs.cognitoApi.getIdToken();
+      return response.jwtToken;
     } catch (err) {
       throw err;
     }
   }
 
-  login = async (username, password) => {
-    const { user, fullUserObject } = await APIs.cognitoApi.login(username, password)
-    if (!user.Session && (fullUserObject.preferredMFA && fullUserObject.preferredMFA === 'SOFTWARE_TOKEN_MFA')) {
-      this.changeAppState('badTotpState', true);
-    }
-    if (user) {
-      return user;
-    } else {
-      console.log('login failed')
+  data = async () => {
+    try {
+      const response = await APIs.cognitoApi.getIdToken();
+      return response.payload;
+    } catch (err) {
+      throw err;
     }
   }
 
-  logout = () => {
-    this.resetAppState();
-    return APIs.cognitoApi.logout();
-  }
-
-  checkSession = (fullUserObject) => APIs.cognitoApi.checkSession(fullUserObject).then(session => session);
-
-  /* 2FA */
-
-  sendMFACode = (challengeAnswer, pendingSession) => {
-    return new Promise((res, rej) => {
-      APIs.cognitoApi.sendMFACode(challengeAnswer, pendingSession)
-        .then(response => res(response))
-        .catch(err => {
-          if (err.message === 'new password required') {
-            this.changeAppState('newPasswordRequired', true);
-          }
-          rej(err);
-        });
-    });
-  }
+  logout = () => APIs.cognitoApi.logout()
 }

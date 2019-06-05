@@ -1,5 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import 'babel-polyfill';
+import PrivateRoute from './components/PrivateRoute';
+import Logout from './components/Logout';
+import { cognitoApi as User } from './lib';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export { Logout, PrivateRoute, User };
