@@ -11,11 +11,12 @@ export default class AccountsApi {
 
   static getUserData = async (token) => {
     const options = { headers: { 'Authorization': token }};
-    return await this.get('/api/user', options);
+    const { user } = await this.get('/api/user', options);
+    return user;
   }
 
-  static get = (path) => {
-    return this.makeRequest(path);
+  static get = (path, options) => {
+    return this.makeRequest(path, options);
   }
 
   static async makeRequest(path, options) {
