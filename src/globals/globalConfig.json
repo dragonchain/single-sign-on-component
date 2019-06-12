@@ -11,7 +11,7 @@
   },
   "local": {
     "ACCOUNT_URL": "http://localhost:3000",
-    "ACCOUNTS_SERVICE_URL": "http://localhost:3000",
+    "ACCOUNTS_SERVICE_URL": "http://localhost:8080",
     "MIXPANEL_TOKEN":"3d0fb2fe0ec5a998da247424c119621d"
   }
 }
