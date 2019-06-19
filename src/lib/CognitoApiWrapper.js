@@ -1,4 +1,5 @@
 import APIs from './ApiSingletons';
+import AccountsApi from './AccountsApi';
 
 export default class CognitoApiWrapper {
   checkSession = async (isFullObject) => {
@@ -8,21 +9,13 @@ export default class CognitoApiWrapper {
   }
 
   token = async () => {
-    try {
-      const response = await APIs.cognitoApi.getIdToken();
-      return response.jwtToken;
-    } catch (err) {
-      throw err;
-    }
+    const response = await APIs.cognitoApi.getIdToken();
+    return response.jwtToken;
   }
 
   data = async () => {
-    try {
-      const response = await APIs.cognitoApi.getIdToken();
-      return response.payload;
-    } catch (err) {
-      throw err;
-    }
+    const token = await this.token();
+    return await AccountsApi.getUserData(token);
   }
 
   logout = () => APIs.cognitoApi.logout()

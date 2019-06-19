@@ -1,14 +1,17 @@
 {
   "production": {
     "ACCOUNT_URL": "https://account.dragonchain.com",
+    "ACCOUNTS_SERVICE_URL": "https://accounts.api.dragonchain.com",
     "MIXPANEL_TOKEN": "00af1971dce9ba6a2bfd040f9aea806a"
   },
   "development": {
     "ACCOUNT_URL": "https://account-staging.dragonchain.com",
+    "ACCOUNTS_SERVICE_URL": "https://accounts-staging.api.dragonchain.com",
     "MIXPANEL_TOKEN":"3d0fb2fe0ec5a998da247424c119621d"
   },
   "local": {
     "ACCOUNT_URL": "http://localhost:3000",
+    "ACCOUNTS_SERVICE_URL": "https://accounts-staging.api.dragonchain.com",
     "MIXPANEL_TOKEN":"3d0fb2fe0ec5a998da247424c119621d"
   }
 }
