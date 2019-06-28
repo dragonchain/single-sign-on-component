@@ -11,7 +11,7 @@ export default class AccountsApi {
 
   static getUserData = async (token) => {
     const options = { headers: { 'Authorization': token }};
-    const { user } = await this.get('/api/user', options);
+    const { user } = await this.get('/v1/user', options);
     return user;
   }
 
