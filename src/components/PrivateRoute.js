@@ -25,13 +25,14 @@ class PrivateRoute extends React.Component {
     const { source, redirect } = this.props;
     const { userSessionCallback } = this.props;
     const token = await cognitoApi.token();
-    const userData = await AccountsApi.getUserData(token);
+    const user = await AccountsApi.getUser(token);
+    const orgs = await AccountsApi.getOrgs(token);
 
-    await userSessionCallback(token, userData);
+    await userSessionCallback({ token, user, orgs });
 
-    AnalyticAction.identify(userData.username);
+    AnalyticAction.identify(user.username);
     AnalyticAction.track(`Viewed ${source}`, {
-      $username: userData.username,
+      $username: user.username,
       $source: source,
       $location: redirect,
     });

@@ -2,21 +2,26 @@ import APIs from './ApiSingletons';
 import AccountsApi from './AccountsApi';
 
 export default class CognitoApiWrapper {
-  checkSession = async (isFullObject) => {
+  static checkSession = async (isFullObject) => {
     const userData = await APIs.cognitoApi.checkSession(isFullObject);
     if (!userData) return false;
     return userData;
   }
 
-  token = async () => {
+  static token = async () => {
     const response = await APIs.cognitoApi.getIdToken();
     return response.jwtToken;
   }
 
-  data = async () => {
+  static user = async () => {
     const token = await this.token();
-    return await AccountsApi.getUserData(token);
+    return AccountsApi.getUser(token);
   }
 
-  logout = () => APIs.cognitoApi.logout()
+  static orgs = async () => {
+    const token = await this.token();
+    return AccountsApi.getOrgs(token);
+  }
+
+  static logout = () => APIs.cognitoApi.logout()
 }

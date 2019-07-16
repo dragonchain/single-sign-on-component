@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
-import { cognitoApi as User } from './lib';
+import { cognitoApi as Account } from './lib';
 
-export { Logout, PrivateRoute, User };
+export { Logout, PrivateRoute, Account };
