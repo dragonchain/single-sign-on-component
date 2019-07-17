@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Single sign-on login component for use on any dragonchain url.",
   "main": "./dist/index.js",
   "files": [
@@ -44,7 +44,7 @@
     "gulp-sourcemaps": "^2.6.4"
   },
   "dependencies": {
-    "@dragonchain-dev/cognito-wrapper": "^4.0.18",
+    "@dragonchain-dev/cognito-wrapper": "^4.0.20",
     "babel-polyfill": "^6.26.0",
     "mixpanel-browser": "^2.28.0",
     "prop-types": "^15.6.2",

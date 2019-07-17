@@ -37,3 +37,8 @@
   - none
 - **Packaging**
   - Update buildspec to execute build command  
+
+## Version 4.0.4
+
+- **Packaging**
+  - Update buildspec to publish
