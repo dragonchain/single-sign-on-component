@@ -13,4 +13,4 @@ phases:
       - npm install
   post_build:
     commands:
-      - npm publish
+      - npm build

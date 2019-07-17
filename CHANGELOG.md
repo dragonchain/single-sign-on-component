@@ -22,3 +22,18 @@
   - none
 - **Packaging**
   - none
+
+## Version 4.0.3
+
+- **Feature**:
+  - None
+- **BugFix**
+  - None
+- **Documentation**:
+  - None
+- **Development**:
+  - None
+- **Testing**
+  - none
+- **Packaging**
+  - Update buildspec to execute build command  
