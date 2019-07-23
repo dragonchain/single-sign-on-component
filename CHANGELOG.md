@@ -25,16 +25,6 @@
 
 ## Version 4.0.3
 
-- **Feature**:
-  - None
-- **BugFix**
-  - None
-- **Documentation**:
-  - None
-- **Development**:
-  - None
-- **Testing**
-  - none
 - **Packaging**
   - Update buildspec to execute build command  
 
@@ -42,3 +32,8 @@
 
 - **Packaging**
   - Update buildspec to publish
+
+## Version 4.0.4
+
+- **BugFix**
+  - Move babel-polyfill to peer-dependency
