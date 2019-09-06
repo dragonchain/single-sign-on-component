@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "Single sign-on login component for use on any dragonchain url.",
   "main": "./dist/index.js",
   "files": [
@@ -41,16 +41,16 @@
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^5.0.0",
     "gulp-jasmine": "^4.0.0",
-    "gulp-sourcemaps": "^2.6.4"
-  },
-  "dependencies": {
-    "@dragonchain-dev/cognito-wrapper": "^4.0.20",
-    "mixpanel-browser": "^2.28.0",
-    "prop-types": "^15.7.2",
+    "gulp-sourcemaps": "^2.6.4",
     "react": "^16.7.0"
   },
+  "dependencies": {
+    "@dragonchain-dev/cognito-wrapper": "^4.2.1"
+  },
   "peerDependencies": {
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.7.0"
   },
   "browserslist": [
     ">0.2%",

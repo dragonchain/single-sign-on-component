@@ -37,3 +37,10 @@
 
 - **BugFix**
   - Move babel-polyfill to peer-dependency
+
+## Version 4.0.7
+
+- **Development**
+  - Remove mix-panel 
+  - Move react to peer-dependency 
+  - Move prop-types to peer-dependency 

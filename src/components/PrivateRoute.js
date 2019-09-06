@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { cognitoApi, AnalyticAction, AccountsApi } from '../lib';
+import { cognitoApi, AccountsApi } from '../lib';
 import { GlobalConfig } from '../globals';
 
 class PrivateRoute extends React.Component {
@@ -22,7 +22,6 @@ class PrivateRoute extends React.Component {
   }
 
   authorize = async () => {
-    const { source, redirect } = this.props;
     const { userSessionCallback } = this.props;
     const token = await cognitoApi.token();
     const user = await AccountsApi.getUser(token);
@@ -30,13 +29,6 @@ class PrivateRoute extends React.Component {
 
     await userSessionCallback({ token, user, orgs });
 
-    AnalyticAction.identify(user.username);
-    AnalyticAction.track(`Viewed ${source}`, {
-      $username: user.username,
-      $source: source,
-      $location: redirect,
-    });
-    AnalyticAction.people.increment(`${source} Logins`);
     this.setState({ isLoggedIn: true });
   }
 
