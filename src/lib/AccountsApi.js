@@ -12,18 +12,20 @@ export default class AccountsApi {
 
   static getUser = async (token) => {
     const options = { headers: { Authorization: token } };
-    const response = await this.get('/v1/user', options);
-    if ('error' in response) { return response; }
-    const { user } = response;
+    const call = await this.get('/v1/user', options);
+    if (!call.ok) { return {}; }
+
+    const { user } = call.response;
     delete user.__orgs__; // remove personal org
     return user;
   }
 
   static getOrgs = async (token) => {
     const options = { headers: { Authorization: token } };
-    const response = await this.get('/v1/org', options);
-    if ('error' in response) { return response; }
-    const { orgs } = response;
+    const call = await this.get('/v1/org', options);
+    if (!call.ok) { return []; }
+
+    const { orgs } = call.response;
     return orgs;
   }
 
@@ -32,8 +34,13 @@ export default class AccountsApi {
   static makeRequest = async (path, options) => {
     const requestParams = { ...this.defaultOptions, ...options };
 
-    const res = await fetch(`${this.baseUrl}${path}`, requestParams);
-    const jsonResponse = await res.json();
-    return jsonResponse;
+    try {
+      const res = await fetch(`${this.baseUrl}${path}`, requestParams);
+      const jsonResponse = await res.json();
+      if (!res.ok) { throw new Error(jsonResponse.message || jsonResponse.error); }
+      return { ok:true, response:jsonResponse };
+    } catch (error) {
+      return { ok:false };
+    }
   }
 }

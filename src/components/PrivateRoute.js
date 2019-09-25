@@ -11,7 +11,7 @@ class PrivateRoute extends React.Component {
     };
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     const userData = await cognitoApi.checkSession(false);
 
     if (userData) {
@@ -23,11 +23,12 @@ class PrivateRoute extends React.Component {
 
   authorize = async () => {
     const { userSessionCallback } = this.props;
-    const token = await cognitoApi.token();
-    const user = await AccountsApi.getUser(token);
-    const orgs = await AccountsApi.getOrgs(token);
-
-    await userSessionCallback({ token, user, orgs });
+    if (userSessionCallback) {
+      const token = await cognitoApi.token();
+      const user = await AccountsApi.getUser(token);
+      const orgs = await AccountsApi.getOrgs(token);
+      await userSessionCallback({ token, user, orgs });
+    }
 
     this.setState({ isLoggedIn: true });
   }
@@ -39,18 +40,22 @@ class PrivateRoute extends React.Component {
 
   render() {
     const { isLoggedIn } = this.state;
-    const { children } = this.props;
+    const { children, fallback } = this.props;
 
     if (isLoggedIn) return children;
-    return null;
+    return (<>{fallback || ''}</>);
   }
 }
 
+PrivateRoute.defaultProps = {
+  userSessionCallback:undefined,
+};
+
 PrivateRoute.propTypes = {
   redirect: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired, // application [dragonden, academy, console, ctlc]
+  source: PropTypes.string.isRequired, // application [dragonden, academy, console, ctlc, den]
   children: PropTypes.node.isRequired,
-  userSessionCallback: PropTypes.func.isRequired,
+  userSessionCallback: PropTypes.func,
 };
 
 export default PrivateRoute;

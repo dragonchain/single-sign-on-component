@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "4.0.7",
+  "version": "4.1.0",
   "description": "Single sign-on login component for use on any dragonchain url.",
   "main": "./dist/index.js",
   "files": [
@@ -29,6 +29,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-polyfill": "^6.26.0",
     "del": "^3.0.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-babel": "^5.3.0",
@@ -45,7 +46,7 @@
     "react": "^16.7.0"
   },
   "dependencies": {
-    "@dragonchain-dev/cognito-wrapper": "^4.2.1"
+    "@dragonchain-dev/cognito-wrapper": "^4.2.2"
   },
   "peerDependencies": {
     "babel-polyfill": "^6.26.0",
