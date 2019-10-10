@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 4.1.1
+
+- **Feature**:
+  - Allow override of REACT_APP_VERSION with USER_POOL
+
+- **Development**
+  - Bump @dragonchain-dev/cognito-wrapper version to 4.2.3 fom 4.2.3
+
+
 ## Version 4.1.0
 
 - **Feature**:
