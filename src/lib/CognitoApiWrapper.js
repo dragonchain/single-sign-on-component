@@ -13,6 +13,11 @@ export default class CognitoApiWrapper {
     return response.jwtToken;
   }
 
+  groups = async () => {
+    const response = await APIs.cognitoApi.getIdToken();
+    return response.payload['cognito:groups'] || [];
+  }
+
   user = async () => {
     const token = await this.token();
     return AccountsApi.getUser(token);
