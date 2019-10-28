@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { cognitoApi, AccountsApi } from '../lib';
+import { cognitoApi, AccountsApi, parseURLquery } from '../lib';
 import { GlobalConfig } from '../globals';
+
+const { ACCOUNT_URL } = GlobalConfig;
 
 class PrivateRoute extends React.Component {
   constructor(props) {
@@ -12,17 +14,29 @@ class PrivateRoute extends React.Component {
   }
 
   componentDidMount = async () => {
+    const { history, source } = this.props;
+
+    if (history && ['academy', 'scale'].includes(source)) {
+      const { refreshToken } = parseURLquery(history.location.search);
+
+      if (refreshToken) {
+        await cognitoApi.loginWithToken(refreshToken);
+        history.push(history.location.pathname);
+      }
+    }
+
     const userData = await cognitoApi.checkSession(false);
 
-    if (userData) {
-      await this.authorize();
-    } else {
-      this.redirectToAccount();
-    }
+    if (!userData) { this.redirectToAccount(); return; }
+    await this.authorize();
   }
 
   authorize = async () => {
     const { userSessionCallback } = this.props;
+    const session = await cognitoApi.refreshSession();
+
+    if (!session) { this.redirectToAccount(); return; }
+
     if (userSessionCallback) {
       const token = await cognitoApi.token();
       const user = await AccountsApi.getUser(token);
@@ -34,8 +48,10 @@ class PrivateRoute extends React.Component {
   }
 
   redirectToAccount = () => {
-    const { source, redirect } = this.props;
-    window.location = `${GlobalConfig.ACCOUNT_URL}/login?source=${source}&redirect=${redirect}`;
+    const { overrideAccountUrl, source, redirect } = this.props;
+    const accountUrl = overrideAccountUrl || ACCOUNT_URL;
+
+    window.location = `${accountUrl}/login?source=${source}&redirect=${redirect}`;
   }
 
   render() {
@@ -53,7 +69,7 @@ PrivateRoute.defaultProps = {
 
 PrivateRoute.propTypes = {
   redirect: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired, // application [dragonden, academy, console, ctlc, den]
+  source: PropTypes.string.isRequired, // application [console, den, academy, scale]
   children: PropTypes.node.isRequired,
   userSessionCallback: PropTypes.func,
 };

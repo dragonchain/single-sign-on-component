@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 5.0.0
+
+- **Feature**:
+  - Add login with user refresh token for scale & academy
+  - Add option to override account ui path
+  - Add option to override app domain
+
+- **Development**
+  - Bump @dragonchain-dev/cognito-wrapper version to 4.2.4 fom 5.0.2
+
+
 ## Version 4.1.3
 
 - **Feature**:

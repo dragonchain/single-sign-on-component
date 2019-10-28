@@ -1,9 +1,9 @@
 import CognitoApi from '@dragonchain-dev/cognito-wrapper';
-import { env } from '../globals';
+import { domain, env } from '../globals';
 
 class ApiSingletons {
   constructor() {
-    this.cognitoApi = new CognitoApi(env);
+    this.cognitoApi = new CognitoApi(env, domain);
   }
 }
 

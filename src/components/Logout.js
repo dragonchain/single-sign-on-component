@@ -9,7 +9,7 @@ const Logout = async (source, redirect) => {
 
 Logout.propTypes = {
   redirect: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired, // application [dragonden, academy, console, ctlc]
+  source: PropTypes.string.isRequired, // application [console, den, academy, scale]
 };
 
 export default Logout;
