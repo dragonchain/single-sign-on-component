@@ -51,7 +51,7 @@ class PrivateRoute extends React.Component {
     const { overrideAccountUrl, source, redirect } = this.props;
     const accountUrl = overrideAccountUrl || ACCOUNT_URL;
 
-    window.location = `${accountUrl}/login?source=${source}&redirect=${redirect}`;
+    window.location = `${accountUrl}/login/?source=${source}&redirect=${redirect}`;
   }
 
   render() {
