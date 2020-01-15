@@ -1,5 +1,3 @@
-import PrivateRoute from './components/PrivateRoute';
-import Logout from './components/Logout';
-import { cognitoApi as Account } from './lib';
-
-export { Logout, PrivateRoute, Account };
+export * from './components';
+export { cognitoApi as Account } from './lib';
+export { useSSOValue, SSOContext } from './Context';

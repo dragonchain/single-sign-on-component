@@ -1,0 +1,47 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb", 
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "plugins": ["prettier", "react-hooks"],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "fetch": true,
+    "contextType": true
+  },
+  "rules": {
+    "indent": "off",
+    "comma-dangle": ["error", "always-multiline"],
+    "no-console": 0,
+    "no-underscore-dangle": 0,
+    "react/jsx-filename-extension": 0,
+    "import/prefer-default-export": 0,
+    "react/prop-types": 0,
+    "react/jsx-wrap-multilines": 0,
+    "no-useless-concat": 0,
+    "react/jsx-indent": 0,
+    "react/jsx-curly-newline": 0,
+    "react-hooks/rules-of-hooks": 2,
+    "react-hooks/exhaustive-deps": 1,
+    "react/sort-comp": 0,
+    "max-len": [
+      "warn",
+      {
+        "code": 100,
+        "tabWidth": 2,
+        "comments": 100,
+        "ignoreComments": false,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }
+    ]
+  }
+}

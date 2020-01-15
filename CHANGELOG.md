@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 6.0.0
+
+- **Backwards Compatibility**
+  - Version 6.0.0 is a breaking change. Use version 5.0.3 if you do not plan to update and continue using legacy code.
+
+- **Feature**:
+  - Add authentication context
+  - Add Private Element to allow for auth at a component level
+  - Add Single-Sign-On as a top-level container
+  - Update Private Route to use hooks and context
+  - Update Logout to accept auth context from parent app
+
+- **Development**
+  - Upgrade React to 6.12.0 and move to hooks
+
+
 ## Version 5.0.0
 
 - **Feature**:
@@ -75,13 +91,7 @@
       - orgs
   - Adds orgs to userSessionCallback arguments
   - Adds **orgs** function to **Account**
-- **BugFix**
-  - None
 - **Documentation**:
   - Added changelog
 - **Development**:
   - Added codeowners @deanshelton913 @emtesenair and @noahgribbin
-- **Testing**
-  - none
-- **Packaging**
-  - none
