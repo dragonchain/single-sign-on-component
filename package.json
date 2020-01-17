@@ -8,7 +8,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dragonchain-inc/single-sign-on-component.git"
+    "url": "git+https://github.com/dragonchain/single-sign-on-component.git"
   },
   "authors": [
     "Eric Tesenair",
@@ -20,9 +20,9 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/dragonchain-inc/single-sign-on-component/issues"
+    "url": "https://github.com/dragonchain/single-sign-on-component/issues"
   },
-  "homepage": "https://github.com/dragonchain-inc/single-sign-on-component#readme",
+  "homepage": "https://github.com/dragonchain/single-sign-on-component#readme",
   "scripts": {
     "build": "gulp clean && gulp build",
     "test": "gulp clean && gulp build && gulp spec --require babel-polyfill",
