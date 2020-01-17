@@ -1,12 +1,9 @@
 version: 0.2
-env:
-  variables:
-    CI: "true"
-cache:
-  paths:
-    - /root/.npm/**/*
+
 phases:
   install:
+    runtime-versions:
+      nodejs: 10
     commands:
       - wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-1.5.tar.gz && tar xzf jq-1.5.tar.gz && cd jq-1.5 && ./configure && make && make install && cd ..
       - NPM_TOKEN=$(aws secretsmanager get-secret-value --secret-id=npm/publish/token | jq -r '.SecretString | fromjson | .NPM_TOKEN')
