@@ -1,17 +1,16 @@
 language: node_js
 node_js:
-  - "10"
-
+- '10'
 script:
-  - npm install
-
+- npm install
 before_deploy:
-  - npm run build
-
+- npm run build
 deploy:
-    provider: npm
-    email: $NPM_EMAIL
-    api_key: $NPM_API_TOKEN
-    cleanup: true
-    on:
-      branch: master
+  provider: npm
+  email:
+    secure: ipT0/BUxEXNmIxImGUUddE4FfcfNL2SxGx2SJpT45sZiyUrD489bHWvanZ7gqndRN8LfaStp2bY83JF/+Zb6UnRPUrwon06Cjdn7PeJ/nsbwFgMDQ1ibkR+atUMDsuXBR858yHM2kRPd6r33ZBOuhfT1zth43ZiTgTvsQl7FJULiEq7mPW4muS9sJGf6GkIjIJLVT6aVfiWInj3G/Ct9foEj0ePY4tmWpVbAJjBS47UrPtw7Nu9/tw0Q9muLtCrraV0JsYQfatGu4ktwG73CIzdNc7N/i+eLUEHbhc/gt9QXRZUDFT+HkDRkbG0OYh2gabycSsCnJD2nQJ5jW7Ol1pAsV9IqJJf6UpnW/LKke9vPYS9TJ8Liqx5kpAk1J4CRUKaBSnlzkIdOD4Xpe2t4Gfk8fsug3gBbeXZgkFLa9J0L2lJMpHjhMJbOjaRomIlQbwr4mBuI2FsESsIABm42A1j95WTD3r8tRXMTYjpU7P5t9a9SznFg+b92eIUP7qnFDCn5MkilTq7zjS7OfaQf//Btlnuoh+pl4WmJqjbIzNP8LtlwHOo6/VhYlE0IEp4BRjUE17napw9v3kPnjsWi9xB8O/9/nfUOTFPpD83X70668EBVdRsj9+M3StEBE1TUhPq7r5JcDbjK5oD/0aO4JdD3CKyTQ2LNCvTaf7b/5+8=
+  api_key:
+    secure: aGNGLxvUjFnwIvIGFZCvW2FbiYqj9SVhOnm+C53Lg7VJhQn+xvG8Ubvg3rkUEshqAx4wjihOdVrj4xUbR+1sgt3i8FnIZCu0bn35uzuAlCSRjOYwR9dj416tIIFyPqEGp+9MjEV6lqPHX2ztDEMaF00yLW3KcXFD+vB9JJgZheCPfTB9cpJ0s8f7yCqqdelmG0tOckK2FC7/pFTfpABHWY2+MpAnoxoUpWgqcYv0aBvYYwK+ZaDep7WlR3JmiI1ixZKMLM33FT6GqJc3rHmRHHBIyiBzyE5sDtmi2ZCZHvIstJob12EtG1pI3hva/E//bppQrlnhAYwwfrtkUbiksu6VKZZee74eMk9EwSvnQqezPTwUIaW1j6utIR8ezoKj6CBVL81kGZb0zc5zqVLhzfJ3nY0Z8CjSnPYmVWVxL0M40kmauG/lzl1NedHUJSemNBXiEoLGQBz8REiNuxCyu9EHOCcfymC4fG4N4kl0hUMxr6D9sLjN+0zZ/UnXf50mYq3kiUJFzXoPr0fZYxa0VE1gwQm7IGOuTuqL9p4Kp2SWnyYGsCfanz/1c1+vYxQ6T7+6vE2d5K9/AtA/aI+AkJX8PrDEQTZawwh9EclujKYXvUK5rBBrho7MLbi7H6FRKXIH6rEndFYV+1bH05ICBov3gjko6imSwgc7QENZVDQ=
+  cleanup: true
+  on:
+    branch: master
