@@ -19,6 +19,8 @@ For Yarn users:
 
 ## Documentation
 
+[Login]
+
 [Logout]
 
 [Private Element]
@@ -31,6 +33,7 @@ For Yarn users:
 
 See the [Change Log]
 
+[Login]: src/components/Login
 [Logout]: src/components/Logout
 [Private Element]: ./src/components/PrivateElement
 [Private Route]: ./src/components/PrivateRoute

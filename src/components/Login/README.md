@@ -1,19 +1,19 @@
-## Logout
+## Login
 Log a user out of their current session
 
 Using SSO Context
 ```javascript
-import { Logout, useSSOValue } from '@dragonchain-dev/single-sign-on-component';
+import { Login, useSSOValue } from '@dragonchain-dev/single-sign-on-component';
 
 const sso = useSSOValue();
-Logout(sso)
+Login(sso)
 ```
 
 Without SSO context usage
 ```javascript
-import { Logout } from '@dragonchain-dev/single-sign-on-component';
+import { Login } from '@dragonchain-dev/single-sign-on-component';
 
-Logout({
+Login({
   login: 'https://localhost:3000/login/', 
   source: 'console',
   redirect: encodeURIComponent(window.location.href)
@@ -24,22 +24,11 @@ Logout({
 
 **sso** `object`
 
-Object of configuration strings to determine action to be taken upon logout.
+Object of configuration strings to determine action to be taken for login.
 
 
 Properties
 
 - login: Path to single-sign-on login screen
 - source: Source application name: 'console', 'den', 'academy', 'scale'
-- redirect: Path to redirect window after logout
-
-
-**redirectToAccounts** `boolean`
-
-Prevent window redirection to single-sign-on login path
-
-Defaults to
-
-```
-true
-```
+- redirect: Path to redirect window after login
