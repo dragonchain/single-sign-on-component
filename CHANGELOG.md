@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 6.1.0
+
+- **Feature**:
+  - Add Login component
+
+- **Documentation**:
+  - Correct Logout documentation
+
 ## Version 6.0.0
 
 - **Backwards Compatibility**
