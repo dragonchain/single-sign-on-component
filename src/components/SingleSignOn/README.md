@@ -27,6 +27,15 @@ scale
 
 React browser history object
 
+**group** `string`
+
+Restricts access to privateroutes by group. Applies globally.
+
+Example
+```
+provablecontest
+```
+
 **login** `string`
 
 Path to single-sign-on login screen
