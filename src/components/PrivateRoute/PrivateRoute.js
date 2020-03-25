@@ -10,6 +10,7 @@ function PrivateRoute({ callback, fallback, children }) {
 
   useEffect(() => {
     (async () => {
+      z;
       const { isAuthenticated, history, source } = sso;
 
       if (history && ['academy', 'scale'].includes(source)) {
@@ -32,7 +33,8 @@ function PrivateRoute({ callback, fallback, children }) {
     if (!redirectToAccount) return;
 
     const { login, source, redirect } = sso;
-    window.location = `${login}?source=${source}&redirect=${redirect}`;
+    if (typeof window !== 'undefined')
+      window.location = `${login}?source=${source}&redirect=${redirect}`;
   }, [redirectToAccount, sso]);
 
   useEffect(() => {

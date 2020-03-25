@@ -1,6 +1,7 @@
 const Login = async sso => {
   const { login, source, redirect } = sso;
-  window.location = `${login}?source=${source}&redirect=${redirect}`;
+  if (typeof window !== 'undefined')
+    window.location = `${login}?source=${source}&redirect=${redirect}`;
 };
 
 export { Login };

@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 6.2.0
+
+- **Feature**:
+  - Add ability to restrict access by group
+
 ## Version 6.1.0
 
 - **Feature**:

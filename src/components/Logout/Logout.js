@@ -5,7 +5,8 @@ const Logout = async (sso, redirectToAccounts = true) => {
 
   if (redirectToAccounts) {
     const { login, source, redirect } = sso;
-    window.location = `${login}?source=${source}&redirect=${redirect}`;
+    if (typeof window !== 'undefined')
+      window.location = `${login}?source=${source}&redirect=${redirect}`;
   }
 };
 
