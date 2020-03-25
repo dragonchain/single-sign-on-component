@@ -10,7 +10,6 @@ function PrivateRoute({ callback, fallback, children }) {
 
   useEffect(() => {
     (async () => {
-      z;
       const { isAuthenticated, history, source } = sso;
 
       if (history && ['academy', 'scale'].includes(source)) {
@@ -57,7 +56,7 @@ function PrivateRoute({ callback, fallback, children }) {
     })();
   }, [callback, makeCallback, redirectToAccount, sso]);
 
-  if (sso.isAuthenticated) return children;
+  if (!!sso && sso.isAuthenticated) return children;
   return <>{fallback || ''}</>;
 }
 
