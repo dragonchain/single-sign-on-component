@@ -1,11 +1,10 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Single sign-on login component for use on any dragonchain domain.",
   "main": "./dist/index.js",
-  "files": [
-    "/dist"
-  ],
+  "module": "./dist/es6/index.js",
+  "jsnext:main": "./dist/es6/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dragonchain/single-sign-on-component.git"
@@ -24,19 +23,21 @@
   },
   "homepage": "https://github.com/dragonchain/single-sign-on-component#readme",
   "scripts": {
-    "build": "gulp clean && gulp build",
-    "test": "gulp clean && gulp build && gulp spec --require babel-polyfill",
-    "clean": "gulp clean",
-    "watch": "gulp --require babel-polyfill",
-    "prepare": "npm run build"
+    "build": "webpack --display-error-details --mode production && babel ./src/ --out-dir ./dist --copy-files && cross-env BABEL_ENV=es6 babel ./src/ --out-dir ./dist/es6 --copy-files"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "babel-polyfill": "^6.26.0",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.0-beta.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
     "del": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -46,28 +47,19 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "gulp": "^4.0.0",
-    "gulp-babel": "^8.0.0",
-    "gulp-eslint": "^5.0.0",
-    "gulp-jasmine": "^4.0.0",
-    "gulp-sourcemaps": "^2.6.4",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
     "@dragonchain-dev/cognito-wrapper": "^5.0.3",
+    "cross-env": "^7.0.2",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "babel-polyfill": ">=6.26.0",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }

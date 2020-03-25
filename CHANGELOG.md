@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 6.2.1
+
+- **Development**
+  - Replace gulp with webpack
+
 ## Version 6.2.0
 
 - **Feature**:
