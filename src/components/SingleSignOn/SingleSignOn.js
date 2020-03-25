@@ -15,11 +15,13 @@ function SingleSignOn({ history, login, source, group, callback, redirect, child
         const groups = await cognitoApi.groups();
         isAuthenticated = groups.includes(group);
       }
+      const redirectTo =
+        redirect || (typeof window !== 'undefined' && encodeURIComponent(window.location.href));
 
       setConfig({
         history,
         source,
-        redirect: redirect || encodeURIComponent(window.location.href),
+        redirect: redirectTo,
         login,
         isAuthenticated,
       });
