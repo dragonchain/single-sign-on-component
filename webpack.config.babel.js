@@ -4,16 +4,12 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const plugins = [
   new CleanWebpackPlugin(),
-  new CopyWebpackPlugin([
-    { from: './README.md' },
-    { from: './tools', to: 'tools' },
-    { from: './package.json' },
-  ]),
+  new CopyWebpackPlugin([{ from: './README.md' }, { from: './package.json' }]),
 ];
 
 export default {
   devtool: 'hidden-source-map',
-  entry: path.resolve(__dirname, './src/index.js'),
+  entry: './src/index.js',
   output: {
     path: path.resolve('./dist'),
     filename: 'single-sign-on.min.js',

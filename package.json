@@ -1,14 +1,8 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "description": "Single sign-on login component for use on any dragonchain domain.",
-  "main": "./dist/index.js",
-  "module": "./dist/es6/index.js",
-  "jsnext:main": "./dist/es6/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dragonchain/single-sign-on-component.git"
-  },
+  "license": "Apache-2.0",
   "authors": [
     "Eric Tesenair",
     "Noah Gribbin",
@@ -17,13 +11,22 @@
     "Matthew Moya",
     "Todd Wilson"
   ],
-  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragonchain/single-sign-on-component.git"
+  },
   "bugs": {
     "url": "https://github.com/dragonchain/single-sign-on-component/issues"
   },
   "homepage": "https://github.com/dragonchain/single-sign-on-component#readme",
+  "main": "./dist/index.js",
+  "module": "./dist/es6/index.js",
+  "jsnext:main": "./dist/es6/index.js",
   "scripts": {
-    "build": "webpack --display-error-details --mode production && babel ./src/ --out-dir ./dist --copy-files && cross-env BABEL_ENV=es6 babel ./src/ --out-dir ./dist/es6 --copy-files"
+    "build": "webpack --mode production && babel ./src/ --out-dir ./dist --copy-files && cross-env BABEL_ENV=es6 babel ./src/ --out-dir ./dist/es6 --copy-files"
+  },
+  "engines": {
+    "node": ">=10"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -53,13 +56,18 @@
     "webpack": "^4.39.3",
     "webpack-cli": "^3.2.3"
   },
+  "peerDependencies": {
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
+  },
   "dependencies": {
     "@dragonchain-dev/cognito-wrapper": "^5.0.3",
     "cross-env": "^7.0.2",
     "prop-types": "^15.7.2"
   },
-  "peerDependencies": {
-    "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0"
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }
