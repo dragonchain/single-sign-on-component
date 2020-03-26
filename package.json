@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "6.2.2",
+  "version": "6.2.4",
   "description": "Single sign-on login component for use on any dragonchain domain.",
   "license": "Apache-2.0",
   "authors": [
@@ -19,6 +19,9 @@
     "url": "https://github.com/dragonchain/single-sign-on-component/issues"
   },
   "homepage": "https://github.com/dragonchain/single-sign-on-component#readme",
+  "files":[
+    "dist/*"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/es6/index.js",
   "jsnext:main": "./dist/es6/index.js",
