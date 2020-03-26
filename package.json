@@ -1,6 +1,6 @@
 {
   "name": "@dragonchain-dev/single-sign-on-component",
-  "version": "6.2.5",
+  "version": "6.2.6",
   "description": "Single sign-on login component for use on any dragonchain domain.",
   "license": "Apache-2.0",
   "authors": [
