@@ -5,15 +5,3 @@
 .out
 .storybook
 .vscode
-src
-tools
-public
-webpack.config.babel.js
-buildspec.*
-jsconfig.json
-.npm*
-CICD*
-.babelrc
-.eslint*
-.prettier*
-jq*
