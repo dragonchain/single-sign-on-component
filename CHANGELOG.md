@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 6.2.7
+
+- **Feature**
+  - Await callback before rendering children
+
 ## Version 6.2.1
 
 - **Development**
