@@ -18,6 +18,8 @@ function SingleSignOn({ history, login, source, group, callback, redirect, child
       const redirectTo =
         redirect || (typeof window !== 'undefined' && encodeURIComponent(window.location.href));
 
+      if (callback) await callback(isAuthenticated);
+      console.log('apple');
       setConfig({
         history,
         source,
@@ -25,8 +27,6 @@ function SingleSignOn({ history, login, source, group, callback, redirect, child
         login,
         isAuthenticated,
       });
-
-      if (callback) callback(isAuthenticated);
     })();
   }, [callback, group, history, login, redirect, source]);
 
