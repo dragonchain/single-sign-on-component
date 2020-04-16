@@ -12,7 +12,7 @@ function PrivateRoute({ callback, fallback, children }) {
     (async () => {
       const { isAuthenticated, history, source } = sso;
 
-      if (history && ['academy', 'scale'].includes(source)) {
+      if (history && ['academy', 'den', 'eternal'].includes(source)) {
         const { refreshToken } = parse(history.location.search);
 
         if (refreshToken) {
@@ -21,9 +21,7 @@ function PrivateRoute({ callback, fallback, children }) {
         }
       }
 
-      if (!isAuthenticated) {
-        setRedirectToAccount(true);
-      }
+      if (!isAuthenticated) setRedirectToAccount(true);
       setMakeCallback(true);
     })();
   }, [sso]);

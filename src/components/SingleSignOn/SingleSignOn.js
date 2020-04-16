@@ -19,7 +19,6 @@ function SingleSignOn({ history, login, source, group, callback, redirect, child
         redirect || (typeof window !== 'undefined' && encodeURIComponent(window.location.href));
 
       if (callback) await callback(isAuthenticated);
-      console.log('apple');
       setConfig({
         history,
         source,
@@ -44,7 +43,7 @@ SingleSignOn.defaultProps = {
 
 SingleSignOn.propTypes = {
   login: PropTypes.string.isRequired,
-  source: PropTypes.oneOf(['console', 'den', 'academy', 'scale']).isRequired,
+  source: PropTypes.oneOf(['academy', 'console', 'den', 'eternal']).isRequired,
   group: PropTypes.string,
   callback: PropTypes.func,
   redirect: PropTypes.string,
