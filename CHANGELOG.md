@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 6.2.8
+
+- **Development**
+  - Remove scale as source
+  - Add eternal as source
+
 ## Version 6.2.7
 
 - **Feature**

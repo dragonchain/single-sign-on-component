@@ -17,10 +17,10 @@ Short name of Application using SSO
 
 One of
 ```
+academy
 console
 den
-academy
-scale
+eternal
 ```
 
 **history** `object`
@@ -29,7 +29,7 @@ React browser history object
 
 **group** `string`
 
-Restricts access to privateroutes by group. Applies globally.
+Restricts access to private routes by group. Applies globally.
 
 Example
 ```
