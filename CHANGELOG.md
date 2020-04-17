@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 6.2.9
+
+- **Development**
+  - Move token login to Single Sign On component
+  - Remove token login from PrivateRoute
+
 ## Version 6.2.8
 
 - **Development**

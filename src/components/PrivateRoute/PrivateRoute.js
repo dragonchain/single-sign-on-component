@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSSOValue } from '../../Context';
-import { cognitoApi, AccountsApi, parse } from '../../lib';
+import { cognitoApi, AccountsApi } from '../../lib';
 
 function PrivateRoute({ callback, fallback, children }) {
   const sso = useSSOValue();
@@ -9,29 +9,15 @@ function PrivateRoute({ callback, fallback, children }) {
   const [makeCallback, setMakeCallback] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const { isAuthenticated, history, source } = sso;
-
-      if (history && ['academy', 'den', 'eternal'].includes(source)) {
-        const { refreshToken } = parse(history.location.search);
-
-        if (refreshToken) {
-          await cognitoApi.loginWithToken(refreshToken);
-          history.push(history.location.pathname);
-        }
-      }
-
-      if (!isAuthenticated) setRedirectToAccount(true);
-      setMakeCallback(true);
-    })();
+    if (!sso.isAuthenticated) setRedirectToAccount(true);
+    setMakeCallback(true);
   }, [sso]);
 
   useEffect(() => {
     if (!redirectToAccount) return;
 
-    const { login, source, redirect } = sso;
     if (typeof window !== 'undefined')
-      window.location = `${login}?source=${source}&redirect=${redirect}`;
+      window.location = `${sso.login}?source=${sso.source}&redirect=${sso.redirect}`;
   }, [redirectToAccount, sso]);
 
   useEffect(() => {
