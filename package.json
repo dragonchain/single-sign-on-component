@@ -61,6 +61,7 @@
     "react-dom": ">= 16.8.0"
   },
   "dependencies": {
+    "@dragonchain-dev/cognito-wrapper": "^5.0.4",
     "cross-env": "^7.0.2",
     "prop-types": "^15.7.2"
   },
