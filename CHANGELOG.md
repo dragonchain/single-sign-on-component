@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 6.2.10
+
+- **Development**
+  - Bump cognito wrapper version
+
 ## Version 6.2.9
 
 - **Development**
