@@ -39,6 +39,7 @@ function SingleSignOn({ history, login, source, group, callback, redirect, child
   }, [callback, group, history, login, redirect, source]);
 
   if (!config.history) return <></>;
+  console.log('!!!! SingleSignOn');
   return <SSOProvider value={config}>{children}</SSOProvider>;
 }
 

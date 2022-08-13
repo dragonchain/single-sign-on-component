@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import { useSSOValue } from '../../Context';
 import { cognitoApi, AccountsApi } from '../../lib';
 
-function PrivateRoute({ callback, fallback, children }) {
+function PrivateRoute({ callback, fallback }) {
   const sso = useSSOValue();
   const [redirectToAccount, setRedirectToAccount] = useState(false);
   const [makeCallback, setMakeCallback] = useState(false);
@@ -40,7 +42,7 @@ function PrivateRoute({ callback, fallback, children }) {
     })();
   }, [callback, makeCallback, redirectToAccount, sso]);
 
-  if (!!sso && sso.isAuthenticated) return children;
+  if (!!sso && sso.isAuthenticated) return <Outlet />;
   return <>{fallback || ''}</>;
 }
 
@@ -53,6 +55,5 @@ PrivateRoute.defaultProps = {
 
 PrivateRoute.propTypes = {
   callback: PropTypes.func,
-  children: PropTypes.node.isRequired,
   fallback: PropTypes.node,
 };

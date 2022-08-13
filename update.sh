@@ -1,0 +1,3 @@
+npm install -D @babel/cli @babel/core @babel/node @babel/plugin-proposal-class-properties @babel/preset-env @babel/preset-react assert babel-core babel-eslint babel-jest babel-loader clean-webpack-plugin copy-webpack-plugin crypto-browserify del eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks events https-browserify os-browserify prettier react react-dom react-router-dom stream-browserify url webpack webpack-cli 
+		 
+npm install @dragonchain-dev/cognito-wrapper cross-env prop-types
