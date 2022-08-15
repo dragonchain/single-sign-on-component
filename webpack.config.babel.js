@@ -4,7 +4,9 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const plugins = [
   new CleanWebpackPlugin(),
-  new CopyWebpackPlugin([{ from: './README.md' }, { from: './package.json' }]),
+  new CopyWebpackPlugin({
+    patterns: [{ from: './README.md' }, { from: './package.json' }],
+  }),
 ];
 
 export default {
@@ -22,13 +24,13 @@ export default {
   },
   resolve: {
     extensions: ['.js'],
+    fallback: {
+      fs: false,
+      net: false,
+      tls: false,
+    },
   },
   plugins,
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-  },
   module: {
     rules: [
       {

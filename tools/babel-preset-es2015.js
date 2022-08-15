@@ -6,7 +6,7 @@ module.exports = function() {
       [
         '@babel/preset-env',
         {
-          loose: true,
+          loose: false,
           modules: ENV === 'es6' ? false : 'commonjs',
         },
       ],

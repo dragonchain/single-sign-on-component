@@ -39,7 +39,7 @@ function SingleSignOn({ history, login, source, group, callback, redirect, child
   }, [callback, group, history, login, redirect, source]);
 
   if (!config.history) return <></>;
-  console.log('!!!! SingleSignOn');
+  console.log('!!!! SingleSignOn with local cognito wrapper <<<<');
   return <SSOProvider value={config}>{children}</SSOProvider>;
 }
 
